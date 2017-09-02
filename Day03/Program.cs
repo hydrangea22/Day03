@@ -8,38 +8,15 @@ namespace Day03
 {
     class Program
     {
-        /// <summary>
-        /// 이건 메인 함수
-        /// </summary>
-        /// <param name="args"></param>
         static void Main(string[] args)
         {
-            int count = 0;
-            string input = Console.ReadLine();
-            count = int.Parse(input);
-
-            for (int y = 0; y < count; ++y)
-            {
-                PrintLine(y);
-            }
-
-            for (int y = count; y >= 0; --y)
-            {
-                PrintLine(y);
-            }
+            int number = Add3(5);
         }
 
-        /// <summary>
-        /// 한줄에 지정한 만큼 "*"출력 후 줄 바꿈
-        /// </summary>
-        /// <param name="count"></param>
-        static void PrintLine(int count)
+        static int Add3(int x)
         {
-            for (int x = 0; x <= count; ++x)
-            {
-                Console.Write("*");
-            }
-            Console.WriteLine();
+            return x + 3;
         }
+
     }
 }
