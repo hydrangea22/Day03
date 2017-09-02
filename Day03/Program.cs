@@ -25,6 +25,10 @@ namespace Day03
             }
         }
 
+        /// <summary>
+        /// 한줄에 지정한 만큼 "*"출력 후 줄 바꿈
+        /// </summary>
+        /// <param name="count"></param>
         static void PrintLine(int count)
         {
             for (int x = 0; x <= count; ++x)
