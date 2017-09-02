@@ -9,6 +9,8 @@ namespace Day03
     class Program
     {
         static bool isRunning = true;
+        static int monsterX = 1;
+        static int monsterY = 1;
 
         static void Main(string[] args)
         {
@@ -30,9 +32,14 @@ namespace Day03
             int playerY = 1;
 
             Random gRandom = new Random();
-            int goalX = gRandom.Next(1, 8);
-            int goalY = gRandom.Next(1, 8);
+            int goalX = gRandom.Next(1, 9);
+            int goalY = gRandom.Next(1, 9);
             map[goalY, goalX] = 2;
+
+            // 적 시작 위치 설정
+            monsterX = gRandom.Next(1, 9);
+            monsterY = gRandom.Next(1, 9);
+
 
             while (isRunning)
             {
@@ -83,8 +90,48 @@ namespace Day03
                 }
             }
 
+            // 적 움직임 처리
+            Random mRandom = new Random();
+            int direction = mRandom.Next(1, 5);
+
+
+            switch(direction)
+            {
+                case 1: // Up
+                    if (map[monsterY+1, monsterX] != 1)
+                    {
+                        monsterY++;
+                    }
+                    break;
+                case 2: // Down
+                    if (map[monsterY-1, monsterX] != 1)
+                    {
+                        monsterY--;
+                    }
+                    break;
+                case 3: // Left
+                    if (map[monsterY, monsterX-1] != 1)
+                    {
+                        monsterX--;
+                    }
+                    break;
+                case 4: // Right
+                    if (map[monsterY, monsterX+1] != 1)
+                    {
+                        monsterX++;
+                    }
+                    break;
+            }
+
+
             // 게임 로직 처리
             if (map[playerY, playerX] == 2)
+            {
+                isRunning = false;
+            }
+
+            // 적과 마주치면 죽는다
+            if (playerX == monsterX && playerY == monsterY)
             {
                 isRunning = false;
             }
@@ -119,10 +166,19 @@ namespace Day03
                         Console.Write("G");
                         Console.ForegroundColor = ConsoleColor.White;
                     }
+                    else if (monsterX == x && monsterY == y)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.Write("M");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
                     else
                     {   // 맵 데이터에 0이면 공백 출력
                         Console.Write(" ");
                     }
+
+
+
                     Console.Write(" ");
                 }
                 Console.WriteLine();
