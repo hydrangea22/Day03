@@ -10,59 +10,103 @@ namespace Day03
     {
         static void Main(string[] args)
         {
-            int a = 3;
-            int b = 5;
-            float c = 3.5f;
-            float d = 2.4f;
+            bool isRunning = true;
+            int[,] map =
+            {
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 1, 0, 1, 0, 0, 0, 1},
+                {1, 0, 0, 1, 0, 1, 0, 0, 0, 1},
+                {1, 0, 0, 1, 0, 1, 0, 0, 0, 1},
+                {1, 0, 0, 1, 0, 1, 0, 0, 0, 1},
+                {1, 0, 0, 1, 0, 1, 0, 0, 0, 1},
+                {1, 0, 0, 1, 0, 1, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            }; // 10 x 10 Array
 
-            SwapNumber(ref a, ref b);
-            SwapNumber(a, b);
-            SwapNumber(c, d);
+            int playerX = 1;
+            int playerY = 1;
 
-            Console.WriteLine(a);
-            Console.WriteLine(b);
+            while (isRunning)
+            {
+                string key = Input();
+                Process(key, ref playerX, ref playerY, map);
+                Clear();
+                //Console.Write(key.ToString());
+                Render(map, playerX, playerY);
+            }
         }
 
-
-        //Call by Reference
-        static void SwapNumber(ref int a1, ref int b1)
+        static string Input()
         {
-            int c = 0;
+            ConsoleKeyInfo info = Console.ReadKey();
 
-            c = a1;     //main->a
-            a1 = b1;    //main->b
-            b1 = c;
-
-            Console.WriteLine(a1);
-            Console.WriteLine(b1);
+            return info.Key.ToString();
         }
 
-
-        //Call by Value
-        static void SwapNumber(int a1, int b1)
+        static int Process(string key, ref int playerX, ref int playerY, int[,] map)
         {
-            int c = 0;
+            //여기는 처리
+            if (key == "UpArrow")
+            {
+                if (map[playerY - 1, playerX] == 0)
+                {
+                    playerY--;
+                }
+            }
+            else if (key == "DownArrow")
+            {
+                if (map[playerY + 1, playerX] == 0)
+                {
+                    playerY++;
+                }
+            }
+            else if (key == "LeftArrow")
+            {
+                if (map[playerY, playerX - 1] == 0)
+                {
+                    playerX--;
+                }
+            }
+            else if (key == "RightArrow")
+            {
+                if (map[playerY, playerX + 1] == 0)
+                {
+                    playerX++;
+                }
+            }
 
-            c = a1;     //main->a
-            a1 = b1;    //main->b
-            b1 = c;
-
-            Console.WriteLine(a1);
-            Console.WriteLine(b1);
+            return 0;
         }
 
-
-        //Call by Value (float)
-        static void SwapNumber(float a1, float b1)
+        static void Clear()
         {
-            float c = 0;
+            Console.Clear();
+        }
 
-            c = a1;     //main->a
-            a1 = b1;    //main->b
-            b1 = c;
-
-            Console.WriteLine(a1);
-            Console.WriteLine(b1);
+        static void Render(int[,] _map, int playerX, int playerY)
+        {
+            for (int y = 0; y < 10; ++y)
+            {
+                for (int x = 0; x < 10; ++x)
+                {
+                    if (_map[y,x] == 1)
+                    {   // 맵 데이터에 1이면 출력
+                        Console.Write(_map[y, x]);
+                    }
+                    else if (playerX == x && playerY == y)
+                    {
+                        Console.Write("P");
+                    }
+                    else
+                    {   // 맵 데이터에 0이면 공백 출력
+                        Console.Write(" ");
+                    }
+                    Console.Write(" ");
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
