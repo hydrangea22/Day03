@@ -8,6 +8,10 @@ namespace Day03
 {
     class Program
     {
+        /// <summary>
+        /// 이건 메인 함수
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             int count = 0;
